@@ -5,7 +5,6 @@ WORKDIR /secretbot
 RUN pip install aiogram pandas
 
 COPY main.py .
-COPY .env .
 
 ARG TOKEN
 ENV TOKEN=${TOKEN}
