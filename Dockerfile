@@ -12,6 +12,4 @@ ENV TOKEN=${TOKEN}
 ARG URL_PHOTO
 ENV URL_PHOTO=${URL_PHOTO}
 
-RUN touch sdklaus_data.csv
-
 CMD [ "python", "main.py" ]
