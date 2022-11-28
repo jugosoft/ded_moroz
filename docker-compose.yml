@@ -1,0 +1,12 @@
+version: '3.0'
+
+services:
+  santabot:
+    container_name: tg_bot
+    build: 
+      context: .
+    environment:
+      - TOKEN=${TOKEN}
+      - URL_PHOTO=${URL_PHOTO}
+    ports:
+      - 6379:6379
