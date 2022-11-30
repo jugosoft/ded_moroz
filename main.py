@@ -57,8 +57,8 @@ async def random_Santas(message: types.Message):
         name_donee = name_donne_list[index_donee]
         preferences_donne = preferences_list[index_donee]
         await bot.send_message(chat_id=chat_id_santa,
-                                text=f'🦊Твой подопечный: {name_donee}, \n\n 🌟Его увлечения: {preferences_donne}')
-        #await bot.send_message(chat_id=-823023035, text = f'Народ, у нас тут пара: \n\n Санта: {name_donne_list[index_santa]} \n\n Подопечный: {name_donee}')
+                                text=f'🦊Твой подопечный: {name_donee}, \n\n 🌟Его увлечения и адрес: {preferences_donne}')
+        #await bot.send_message(chat_id=-823023035, text = f'Народ, у нас тут пара: \n\n Дед Мороз: {name_donne_list[index_santa]} \n\n Подопечный: {name_donee}')
 
 
 
@@ -88,13 +88,9 @@ async def start_msg(message: types.Message):
     if id_txt not in id_list:
         await Form.name.set()
         await bot.send_photo(chat_id=message.chat.id, photo=URL_PHOTO,
-        caption='☃️Привет Санта🎅🏻, присаживайся к огоньку🔥, я как раз готовлю список📝 тайныйх Сант, не подскажешь свое ФИО?')
-        # await message.reply('☃️Привет Санта🎅🏻, присаживайся к огоньку🔥, я как раз готовлю список📝 тайныйх Сант, не п
+        caption='☃️Привет Дед Мороз🎅🏻, присаживайся к огоньку🔥, я как раз готовлю список📝 тайных Дедов Морозов, не подскажешь свое ФИО?')
     else:
-
         await message.reply(text=f'Ты уже зарегестрирован, если нужно поменять данные, обращайся к @KatanaMedoeda')
-
-
 
 # Добавляем возможность отмены, если пользователь передумал заполнять
 @dp.message_handler(state='*', commands='cancel')
@@ -115,7 +111,7 @@ async def process_name(message: types.Message, state: FSMContext):
         data['santas_login'] = message.from_user.username
     exit = '/cancel' # Чтобы /cancel как гиперссылка была
     await Form.next()
-    await message.reply("🤔Расскажи о своих предпочтениях и увлечениях, так Санте будет проще🎁 \n\n Если произошла ошибка нажми " + exit)
+    await message.reply("🤔Расскажи о своих предпочтениях и увлечениях, так Деду Морозу будет проще🎁\n и НЕ ЗАБУДЬ написать сразу свой АДРЕС \n\n Если произошла ошибка нажми " + exit)
 
 
 @dp.message_handler(state=Form.preferences)
@@ -145,22 +141,18 @@ async def process_gender(message: types.Message, state: FSMContext):
         with open('sdklaus_data.csv', 'a', encoding='Windows-1251') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(santa_list)
-        #await bot.send_message(chat_id=-823023035, text=f'⚡️Так народ, у нас новый САНТА: \n\n 📝Полное имя: {full_name} \n 🛰ид: {name_id} \n 🎅🏻ФИО: {name_santas} \n ☃️Увлечения: {preferences_user} \n 🛠Ссылка: {url_user} \n 🐦Имя: {name_user} \n 📲Логин: @{login_user}')
+        #await bot.send_message(chat_id=-823023035, text=f'⚡️Так народ, у нас новый Дед Мороз: \n\n 📝Полное имя: {full_name} \n 🛰ид: {name_id} \n 🎅🏻ФИО: {name_santas} \n ☃️Увлечения: {preferences_user} \n 🛠Ссылка: {url_user} \n 🐦Имя: {name_user} \n 📲Логин: @{login_user}')
         await bot.send_message(
             message.chat.id,
             md.text(
                 md.text('Твоя анкета: \n\n 😺ФИО:', md.bold(data['name'])),
-                md.text('🌟Предпочтения:', md.bold(data['preferences'])), '\n \n Спасибо за регистрацию, я передал данные Санте🙌',
+                md.text('🌟Предпочтения:', md.bold(data['preferences'])), '\n \n Спасибо за регистрацию, я передал данные Дедууу Морозу🙌',
                 sep='\n',
             ),
             reply_markup=markup,
             parse_mode=ParseMode.MARKDOWN,
-
         )
-
-
     await state.finish()
-
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
